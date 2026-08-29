@@ -1,7 +1,9 @@
-// Aguarda o documento carregar completamente
+// Aguarda o documento carregar completamente antes de executar
 document.addEventListener("DOMContentLoaded", () => {
     
-    // Seleciona todos os links do menu que começam com '#'
+    // ==========================================
+    // 1. ROLAGEM SUAVE DO MENU
+    // ==========================================
     const linksInternos = document.querySelectorAll('.nav-links a[href^="#"]');
 
     linksInternos.forEach(link => {
@@ -22,4 +24,28 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
     });
+
+    // ==========================================
+    // 2. ENVIO DO FORMULÁRIO PARA O WHATSAPP
+    // ==========================================
+    const formWhatsapp = document.getElementById('form-whatsapp');
+    
+    if (formWhatsapp) {
+        formWhatsapp.addEventListener('submit', function(e) {
+            e.preventDefault(); // Evita que a página recarregue ao clicar
+            
+            // Captura o que o usuário digitou
+            const nome = document.getElementById('nome').value;
+            const email = document.getElementById('email').value;
+            const mensagem = document.getElementById('mensagem').value;
+            
+            // Monta a mensagem final (o %0A serve para pular linha no WhatsApp)
+            const texto = `Olá! Meu nome é *${nome}* (E-mail: ${email}).%0A%0A${mensagem}`;
+            const numeroWhatsApp = '5515991468764';
+            
+            // Abre o WhatsApp com a mensagem pronta em uma nova aba
+            window.open(`https://wa.me/${numeroWhatsApp}?text=${texto}`, '_blank');
+        });
+    }
+
 });
