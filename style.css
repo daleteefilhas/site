@@ -123,7 +123,8 @@ nav {
 /* Galeria Grid */
 .grid-galeria {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    /* auto-fill ajusta automaticamente a quantidade de colunas dependendo do tamanho da tela */
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 15px;
     margin-top: 30px;
     max-width: 1000px;
@@ -133,15 +134,20 @@ nav {
 
 .grid-galeria img {
     width: 100%;
-    height: 250px;
-    object-fit: cover;
+    /* Estas duas linhas abaixo são o segredo para padronizar as fotos de celular */
+    aspect-ratio: 1 / 1; /* Força todas as fotos a serem quadradas */
+    object-fit: cover;   /* Corta a imagem preenchendo o quadrado, sem distorcer */
+    
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: #f4f4f4; /* Uma cor de fundo caso a foto demore um milissegundo a carregar */
 }
 
 .grid-galeria img:hover {
-    transform: scale(1.05);
+    transform: scale(1.05); /* Efeito de zoom ao passar o mouse */
+    box-shadow: 0 8px 12px rgba(0,0,0,0.2);
+    z-index: 2;
 }
 
 /* Contato */
